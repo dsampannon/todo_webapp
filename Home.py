@@ -2,7 +2,7 @@ import streamlit as st
 import functions
 
 # to start the webapp type in terminal:
-# streamlit run web.py
+# streamlit run Home.py
 
 
 todo_list = functions.get_todos()
@@ -12,10 +12,16 @@ def add_todo():
     todo_list.append(new_todo)
     functions.write_todos(todo_list)
 
+st.set_page_config(layout="wide")
 
 st.title("My todo App")
 st.subheader("This is my todo app.")
-st.write("This app is to increase your productivity")
+st.write("This app is to increase your <b>productivity</b>",
+         unsafe_allow_html=True)
+
+#st.text_input(label="Enter a todo")
+st.text_input(label="", placeholder="Add new todo",
+              on_change=add_todo, key="new_todo")
 
 for index, todo_item in enumerate(todo_list):
     checkbox =st.checkbox(todo_item, key=todo_item)
@@ -26,8 +32,6 @@ for index, todo_item in enumerate(todo_list):
         st.rerun()
 
 
-#st.text_input(label="Enter a todo")
-st.text_input(label="", placeholder="Add new todo",
-              on_change=add_todo, key="new_todo")
+
 
 #st.session_state
